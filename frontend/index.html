@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SentinelMind | SOC Alert Triage</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="topbar"><div><div class="brand">◈ SENTINELMIND</div><div class="subbrand">AI-POWERED SOC ALERT TRIAGE</div></div><div class="status"><span class="dot"></span> DEMO ENVIRONMENT</div></header>
+<main>
+  <section class="hero"><div><p class="eyebrow">SECURITY OPERATIONS CENTER</p><h1>Alert Intelligence</h1><p class="muted">Memory-augmented triage that learns from analyst decisions.</p></div><button id="resetBtn" class="ghost">Reset demo alerts</button></section>
+  <section class="stats">
+    <div class="stat"><span>Total alerts</span><strong id="total">—</strong></div>
+    <div class="stat"><span>Reviewed</span><strong id="reviewed">—</strong></div>
+    <div class="stat"><span>Pending</span><strong id="pending">—</strong></div>
+    <div class="stat"><span>Review rate</span><strong id="rate">—</strong></div>
+  </section>
+  <section class="layout">
+    <div class="panel feed-panel"><div class="panel-head"><div><h2>Live alert feed</h2><p class="muted">Select an alert to inspect its evidence.</p></div><span class="pill" id="alertCount">0 alerts</span></div><div id="alertList" class="alert-list"></div></div>
+    <div class="right-col">
+      <div class="panel detail-panel"><div class="panel-head"><div><h2>AI triage recommendation</h2><p class="muted">Decision support only — analyst remains in control.</p></div></div><div id="detail"><div class="empty">Choose an alert from the feed.</div></div></div>
+      <div class="panel"><div class="panel-head"><div><h2>Analyst feedback</h2><p class="muted">Your verdict becomes organizational memory.</p></div></div><div id="feedback" class="feedback"><p class="muted">Select a pending alert to submit a verdict.</p></div></div>
+    </div>
+  </section>
+  <section class="bottom-grid">
+    <div class="panel"><h2>Learning curve</h2><p class="muted">Analyst-reviewed verdicts over time.</p><canvas id="learningChart" height="130"></canvas></div>
+    <div class="panel"><h2>Learned patterns</h2><p class="muted">Hindsight reflection / saved feedback summary.</p><div id="patterns" class="patterns">Loading patterns…</div></div>
+  </section>
+  <footer>SentinelMind prototype · Synthetic training data · Not a production security control</footer>
+</main>
+<script src="/app.js"></script>
+</body></html>

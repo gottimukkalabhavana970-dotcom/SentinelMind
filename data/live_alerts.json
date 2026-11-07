@@ -1,0 +1,694 @@
+[
+  {
+    "id": "AL-001",
+    "rule_name": "Scheduled Backup Login",
+    "severity": "low",
+    "source_ip": "10.20.1.15",
+    "host": "backup-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T00:15:00Z",
+    "details": "backup server completed routine nightly backup",
+    "status": "Reviewed",
+    "analyst_verdict": "Escalate",
+    "analysis": {
+      "verdict": "Likely benign",
+      "confidence": 85,
+      "explanation": "The event originates from an internal IP (10.20.1.15) on the known backup host (backup-01) using the service account (svc_backup) at the expected nightly backup window. The rule name indicates a scheduled backup login, the severity is low, and the details describe a routine backup completion. No anomalous behavior, failed logins, or indicators of compromise are present.",
+      "key_factors": [
+        "internal source IP",
+        "known backup host",
+        "service account",
+        "scheduled nightly time",
+        "low severity",
+        "routine backup activity"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-002",
+    "rule_name": "Multiple Failed Logins",
+    "severity": "high",
+    "source_ip": "10.20.2.31",
+    "host": "workstation-03",
+    "user": "j.smith",
+    "timestamp": "2026-11-06T01:15:00Z",
+    "details": "multiple failed login attempts followed by success",
+    "status": "Reviewed",
+    "analyst_verdict": "Escalate",
+    "analysis": {
+      "verdict": "Escalate",
+      "confidence": 85,
+      "explanation": "The alert reports high severity multiple failed login attempts followed by a successful login from source IP 10.20.2.31 on workstation-03 for user j.smith. This pattern suggests possible brute\u2011force or credential\u2011stuffing attack and aligns with escalation criteria (critical severity and multiple failed logins). No mitigating context is provided, so the alert should be escalated for immediate investigation.",
+      "key_factors": [
+        "high severity",
+        "multiple failed login attempts followed by success",
+        "source IP 10.20.2.31",
+        "host workstation-03",
+        "user j.smith"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-003",
+    "rule_name": "Unusual Login Location",
+    "severity": "medium",
+    "source_ip": "10.20.3.32",
+    "host": "vpn-02",
+    "user": "a.khan",
+    "timestamp": "2026-11-06T02:15:00Z",
+    "details": "user login from a new country",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 70,
+      "explanation": "The login originates from a new country and uses the VPN host, which is atypical for this user. While the severity is medium and there are no additional indicators like multiple failed attempts or malware, the change in location warrants verification to rule out compromised credentials.",
+      "key_factors": [
+        "new country login",
+        "VPN host vpn-02",
+        "medium severity",
+        "no prior alerts for this user",
+        "no failed login attempts"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-004",
+    "rule_name": "Endpoint Malware Detection",
+    "severity": "critical",
+    "source_ip": "10.20.4.33",
+    "host": "db-01",
+    "user": "admin",
+    "timestamp": "2026-11-06T03:15:00Z",
+    "details": "malware signature detected by endpoint sensor",
+    "status": "Reviewed",
+    "analyst_verdict": "Likely benign",
+    "analysis": {
+      "verdict": "Escalate",
+      "confidence": 90,
+      "explanation": "The alert is marked critical and reports a malware signature detected by an endpoint sensor on a privileged admin account. Critical severity combined with confirmed malware detection warrants immediate escalation regardless of lack of prior context.",
+      "key_factors": [
+        "critical severity",
+        "malware signature detection",
+        "endpoint sensor",
+        "admin user",
+        "new alert with no benign precedent"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-005",
+    "rule_name": "Scheduled Backup Login",
+    "severity": "low",
+    "source_ip": "203.0.113.77",
+    "host": "backup-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T04:15:00Z",
+    "details": "Backup server login from a never-before-seen external IP; source differs from historical routine pattern.",
+    "status": "Reviewed",
+    "analyst_verdict": "Needs review",
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 65,
+      "explanation": "The login is low severity and uses a legitimate service account, but it originates from an external IP address that has never been seen before for this host. This deviation from the normal pattern warrants verification to ensure the access is authorized, even though there are no immediate signs of malicious activity.",
+      "key_factors": [
+        "new external source IP (203.0.113.77)",
+        "low severity",
+        "scheduled backup login",
+        "service account (svc_backup)",
+        "no failed login attempts",
+        "no malware or exfiltration indicators"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-006",
+    "rule_name": "Large Outbound Transfer",
+    "severity": "high",
+    "source_ip": "10.20.2.35",
+    "host": "workstation-03",
+    "user": "j.smith",
+    "timestamp": "2026-11-06T05:15:00Z",
+    "details": "unusual outbound data transfer to external host",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Escalate",
+      "confidence": 78,
+      "explanation": "The alert reports a high\u2011severity, large outbound data transfer from an internal workstation (workstation-03) to an external host, which is a classic indicator of possible data exfiltration. No prior context is available to mitigate the risk, and the combination of critical severity, unusual outbound traffic, and lack of supporting benign evidence warrants immediate escalation to senior analysts.",
+      "key_factors": [
+        "high severity",
+        "large outbound transfer to external host",
+        "internal source IP and host",
+        "no prior benign context",
+        "potential data exfiltration"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-007",
+    "rule_name": "Service Account Authentication",
+    "severity": "low",
+    "source_ip": "10.20.3.36",
+    "host": "vpn-02",
+    "user": "a.khan",
+    "timestamp": "2026-11-06T06:15:00Z",
+    "details": "service account authenticated from known application server",
+    "status": "Reviewed",
+    "analyst_verdict": "Likely benign",
+    "analysis": {
+      "verdict": "Likely benign",
+      "confidence": 70,
+      "explanation": "The authentication originated from an internal IP (10.20.3.36) on a known application server (vpn-02) using a service account, which matches expected behavior for internal service-to-service communication. The alert severity is low and there are no indicators of compromise such as unusual locations, privilege escalation, or multiple failed attempts.",
+      "key_factors": [
+        "internal source IP",
+        "known host vpn-02",
+        "service account usage",
+        "low severity",
+        "no anomalous behavior"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-008",
+    "rule_name": "VPN Login Anomaly",
+    "severity": "medium",
+    "source_ip": "10.20.4.37",
+    "host": "db-01",
+    "user": "admin",
+    "timestamp": "2026-11-06T07:15:00Z",
+    "details": "VPN login at unusual time",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 65,
+      "explanation": "The login originates from an internal VPN IP and uses the admin account, which could be legitimate, but the timestamp (07:15\u202fUTC) is outside typical business hours, making it atypical. No evidence of multiple failures, malware, or privilege escalation is present, so the alert does not rise to an immediate escalation but warrants further investigation.",
+      "key_factors": [
+        "VPN login from internal IP 10.20.4.37",
+        "Admin user 'admin'",
+        "Login time 07:15\u202fUTC (unusual hour)",
+        "Medium severity",
+        "No failed login attempts or malware indicators"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-009",
+    "rule_name": "New Device Enrollment",
+    "severity": "medium",
+    "source_ip": "10.20.1.38",
+    "host": "app-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T08:15:00Z",
+    "details": "new device enrolled for user account",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 65,
+      "explanation": "The alert reports a new device enrollment for the service account 'svc_backup' from an internal IP. While the source IP and host are internal, service accounts typically do not enroll devices, making this activity atypical and potentially indicative of credential misuse. No prior context exists to confirm legitimacy, so a manual review is warranted.",
+      "key_factors": [
+        "medium severity",
+        "source_ip 10.20.1.38 (internal)",
+        "host app-01",
+        "user svc_backup (service account)",
+        "new device enrollment activity",
+        "no prior analyst memory"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-010",
+    "rule_name": "DNS Suspicious Domain",
+    "severity": "high",
+    "source_ip": "10.20.2.39",
+    "host": "workstation-03",
+    "user": "j.smith",
+    "timestamp": "2026-11-06T09:15:00Z",
+    "details": "DNS request to newly registered suspicious domain",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 70,
+      "explanation": "The alert is high severity and involves a DNS request to a newly registered, suspicious domain from an internal workstation. While there is no direct evidence of malware or exfiltration, the combination of a new domain and internal user activity warrants further investigation before a final determination.",
+      "key_factors": [
+        "high severity",
+        "DNS request to newly registered suspicious domain",
+        "internal source IP 10.20.2.39",
+        "user j.smith on workstation-03",
+        "no prior analyst memory or context"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-011",
+    "rule_name": "Scheduled Backup Login",
+    "severity": "low",
+    "source_ip": "10.20.1.15",
+    "host": "backup-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T10:15:00Z",
+    "details": "backup server completed routine nightly backup",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Likely benign",
+      "confidence": 85,
+      "explanation": "The login originates from an internal IP (10.20.1.15) on the designated backup host (backup-01) using the expected service account (svc_backup) at the scheduled backup time. The details explicitly state a routine nightly backup was completed, and there are no indicators of compromise such as unusual locations, elevated privileges, or anomalous behavior. Given the low severity and lack of suspicious factors, the alert is most likely benign.",
+      "key_factors": [
+        "internal source IP",
+        "host matches backup server",
+        "service account used",
+        "low severity",
+        "routine backup activity",
+        "no anomalous behavior"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-012",
+    "rule_name": "Multiple Failed Logins",
+    "severity": "high",
+    "source_ip": "10.20.4.41",
+    "host": "db-01",
+    "user": "admin",
+    "timestamp": "2026-11-06T11:15:00Z",
+    "details": "multiple failed login attempts followed by success",
+    "status": "Reviewed",
+    "analyst_verdict": "Needs review",
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 82,
+      "explanation": "The alert shows a high\u2011severity event involving an admin account on a critical database host. Multiple failed login attempts followed by a successful login suggests a possible brute\u2011force or credential\u2011stuffing attack. Although the source IP is internal, the pattern and privileged user warrant immediate investigation before any determination of benign intent.",
+      "key_factors": [
+        "high severity",
+        "admin user",
+        "db-01 host",
+        "multiple failed logins then success",
+        "internal source IP (10.20.4.41)"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-013",
+    "rule_name": "Unusual Login Location",
+    "severity": "medium",
+    "source_ip": "10.20.1.42",
+    "host": "app-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T12:15:00Z",
+    "details": "user login from a new country",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 70,
+      "explanation": "The login originates from a service account (svc_backup) that has never been seen from this country before. The source IP is internal (10.20.1.42), but the geographic shift suggests a possible VPN compromise or credential misuse. While the severity is medium and there are no multiple failed attempts, the combination of a privileged service account and a new location warrants further investigation before deeming it benign.",
+      "key_factors": [
+        "service account login",
+        "new geographic location",
+        "internal source IP flagged for unusual country",
+        "medium severity",
+        "no prior similar alerts"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-014",
+    "rule_name": "Endpoint Malware Detection",
+    "severity": "critical",
+    "source_ip": "10.20.2.43",
+    "host": "workstation-03",
+    "user": "j.smith",
+    "timestamp": "2026-11-06T13:15:00Z",
+    "details": "malware signature detected by endpoint sensor",
+    "status": "Reviewed",
+    "analyst_verdict": "Escalate",
+    "analysis": {
+      "verdict": "Escalate",
+      "confidence": 90,
+      "explanation": "The alert reports a critical severity malware signature detected by an endpoint sensor on workstation-03 under user j.smith. Critical severity combined with confirmed malware detection warrants immediate escalation for containment and investigation.",
+      "key_factors": [
+        "critical severity",
+        "malware signature detection",
+        "endpoint sensor detection",
+        "no prior benign context"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-015",
+    "rule_name": "Scheduled Backup Login",
+    "severity": "low",
+    "source_ip": "203.0.113.77",
+    "host": "backup-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T14:15:00Z",
+    "details": "Backup server login from a never-before-seen external IP; source differs from historical routine pattern.",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 65,
+      "explanation": "The login originates from an external IP address that has never been seen before for the backup server, which is atypical for routine backup operations. While the severity is low and the account is a service account, the change in source location reduces confidence in it being benign, warranting further investigation.",
+      "key_factors": [
+        "new external source_ip 203.0.113.77",
+        "host backup-01",
+        "service account svc_backup",
+        "low severity",
+        "scheduled backup login pattern unknown"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-016",
+    "rule_name": "Large Outbound Transfer",
+    "severity": "high",
+    "source_ip": "10.20.4.45",
+    "host": "db-01",
+    "user": "admin",
+    "timestamp": "2026-11-06T15:15:00Z",
+    "details": "unusual outbound data transfer to external host",
+    "status": "Reviewed",
+    "analyst_verdict": "Escalate",
+    "analysis": {
+      "verdict": "Escalate",
+      "confidence": 85,
+      "explanation": "The alert reports a high\u2011severity large outbound data transfer from a database server (db\u201101) using the privileged account admin. The transfer is described as unusual and is directed to an external host, which is a classic indicator of potential data exfiltration. No prior benign context exists, and the combination of high severity, privileged user, and outbound traffic to an external destination warrants immediate escalation.",
+      "key_factors": [
+        "high severity",
+        "large outbound transfer",
+        "privileged user admin",
+        "database host db-01",
+        "transfer to external host",
+        "no prior benign memory"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-017",
+    "rule_name": "Service Account Authentication",
+    "severity": "low",
+    "source_ip": "10.20.1.46",
+    "host": "app-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T16:15:00Z",
+    "details": "service account authenticated from known application server",
+    "status": "Reviewed",
+    "analyst_verdict": "Likely benign",
+    "analysis": {
+      "verdict": "Likely benign",
+      "confidence": 80,
+      "explanation": "The authentication originates from an internal IP (10.20.1.46) on a known application server (app-01) using a dedicated backup service account (svc_backup). The alert severity is low, there are no signs of failed logins, lateral movement, or external access, and the behavior matches expected backup operations. No anomalous patterns are present, so the event is most likely benign, though it should still be logged for routine monitoring.",
+      "key_factors": [
+        "internal source IP",
+        "known host app-01",
+        "service account svc_backup",
+        "low severity",
+        "no failed login attempts",
+        "no external exposure"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-018",
+    "rule_name": "VPN Login Anomaly",
+    "severity": "medium",
+    "source_ip": "10.20.2.47",
+    "host": "workstation-03",
+    "user": "j.smith",
+    "timestamp": "2026-11-06T17:15:00Z",
+    "details": "VPN login at unusual time",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 65,
+      "explanation": "The VPN login occurred at an unusual time for the user and there is no contextual information confirming it was expected. While the source IP is internal and the severity is only medium, the timing anomaly and lack of prior activity warrant further investigation before deeming it benign.",
+      "key_factors": [
+        "Unusual login time",
+        "Medium severity",
+        "Internal source IP (no external threat indicator)",
+        "No prior similar alerts",
+        "No evidence of multiple failed attempts or malicious payload"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-019",
+    "rule_name": "New Device Enrollment",
+    "severity": "medium",
+    "source_ip": "10.20.3.48",
+    "host": "vpn-02",
+    "user": "a.khan",
+    "timestamp": "2026-11-06T18:15:00Z",
+    "details": "new device enrolled for user account",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 65,
+      "explanation": "A new device enrollment for user a.khan was observed from an internal IP (10.20.3.48) via the VPN host. While such activity can be legitimate (e.g., user adding a personal device), the lack of prior context and the change in device profile warrant verification before deeming it benign. No indicators of compromise, malware, or privileged escalation are present, but the event\u2019s novelty suggests a cautious approach.",
+      "key_factors": [
+        "new device enrollment",
+        "medium severity",
+        "internal source IP",
+        "VPN host vpn-02",
+        "user a.khan",
+        "no prior similar alerts"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-020",
+    "rule_name": "DNS Suspicious Domain",
+    "severity": "high",
+    "source_ip": "10.20.4.49",
+    "host": "db-01",
+    "user": "admin",
+    "timestamp": "2026-11-06T19:15:00Z",
+    "details": "DNS request to newly registered suspicious domain",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 78,
+      "explanation": "The alert is high severity and involves a DNS query from an internal admin account on a database server to a newly registered domain, which is a common indicator of potential command\u2011and\u2011control or data exfiltration activity. No prior context is available to deem it benign, so it requires further investigation.",
+      "key_factors": [
+        "high severity",
+        "DNS request to newly registered suspicious domain",
+        "source IP 10.20.4.49 (internal)",
+        "host db-01",
+        "user admin"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-021",
+    "rule_name": "Scheduled Backup Login",
+    "severity": "low",
+    "source_ip": "10.20.1.15",
+    "host": "backup-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T20:15:00Z",
+    "details": "backup server completed routine nightly backup",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Likely benign",
+      "confidence": 85,
+      "explanation": "The event originates from an internal IP (10.20.1.15) on the known backup server (backup-01) using the dedicated service account (svc_backup). The timestamp aligns with the expected nightly backup window and the details explicitly state a routine backup completion. No abnormal behavior, failed logins, privilege escalation, or external connections are observed, and the alert severity is low. These factors collectively indicate a normal, expected operation rather than a threat.",
+      "key_factors": [
+        "internal source IP",
+        "known backup host",
+        "service account usage",
+        "low severity",
+        "routine nightly schedule",
+        "no anomalous activity"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-022",
+    "rule_name": "Multiple Failed Logins",
+    "severity": "high",
+    "source_ip": "10.20.2.51",
+    "host": "workstation-03",
+    "user": "j.smith",
+    "timestamp": "2026-11-06T21:15:00Z",
+    "details": "multiple failed login attempts followed by success",
+    "status": "Reviewed",
+    "analyst_verdict": "Needs review",
+    "analysis": {
+      "verdict": "Escalate",
+      "confidence": 85,
+      "explanation": "The alert is high severity and reports multiple failed login attempts followed by a successful login, which is a classic indicator of credential brute\u2011force or compromised account activity. Even though the source IP is internal, the pattern and critical severity warrant immediate escalation for deeper investigation.",
+      "key_factors": [
+        "high severity",
+        "multiple failed login attempts",
+        "successful login after failures",
+        "internal source IP (10.20.2.51)",
+        "user j.smith",
+        "no prior context or mitigating evidence"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    },
+    "analyst_reason": "Reviewed during demo"
+  },
+  {
+    "id": "AL-023",
+    "rule_name": "Unusual Login Location",
+    "severity": "medium",
+    "source_ip": "10.20.3.52",
+    "host": "vpn-02",
+    "user": "a.khan",
+    "timestamp": "2026-11-06T22:15:00Z",
+    "details": "user login from a new country",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 70,
+      "explanation": "The login originates from a new country and uses the VPN host, which is atypical for this user. While the severity is only medium and there are no additional indicators such as multiple failed attempts or malware signs, the change in geographic location warrants further investigation to confirm legitimacy.",
+      "key_factors": [
+        "new geographic location",
+        "VPN host vpn-02",
+        "medium severity",
+        "no prior context",
+        "single successful login"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-024",
+    "rule_name": "Endpoint Malware Detection",
+    "severity": "critical",
+    "source_ip": "10.20.4.53",
+    "host": "db-01",
+    "user": "admin",
+    "timestamp": "2026-11-06T23:15:00Z",
+    "details": "malware signature detected by endpoint sensor",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Escalate",
+      "confidence": 92,
+      "explanation": "The alert is marked critical and reports a malware signature detected by an endpoint sensor on a database server (db-01) under the admin account. Critical severity combined with confirmed malware detection warrants immediate escalation for containment and investigation.",
+      "key_factors": [
+        "critical severity",
+        "malware signature detection",
+        "endpoint sensor alert",
+        "host db-01 (database server)",
+        "admin user account"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  },
+  {
+    "id": "AL-025",
+    "rule_name": "Scheduled Backup Login",
+    "severity": "low",
+    "source_ip": "203.0.113.77",
+    "host": "backup-01",
+    "user": "svc_backup",
+    "timestamp": "2026-11-06T00:15:00Z",
+    "details": "Backup server login from a never-before-seen external IP; source differs from historical routine pattern.",
+    "status": "Pending",
+    "analyst_verdict": null,
+    "analysis": {
+      "verdict": "Needs review",
+      "confidence": 65,
+      "explanation": "The login originates from a previously unseen external IP address, which is atypical for a scheduled backup service that usually operates within the internal network. While the alert severity is low and there are no signs of malware, ransomware, or multiple failed attempts, the unexpected external source warrants further investigation to confirm it is an authorized remote backup operation.",
+      "key_factors": [
+        "new external source_ip 203.0.113.77",
+        "low severity but unusual external access",
+        "service account svc_backup used for backup",
+        "no additional malicious indicators"
+      ],
+      "model": "openai/gpt-oss-120b",
+      "memories": [],
+      "memory_mode": "Local JSON fallback"
+    }
+  }
+]
